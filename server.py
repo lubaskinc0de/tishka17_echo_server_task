@@ -9,14 +9,14 @@ class Logger:
     logging_level: str = logging.INFO
     logging_time_format: str = '%Y-%m-%d'
 
-    _log_format: str = f'[%(asctime)s] %(levelname)s [%(filename)s at %(lineno)d line] - %(message)s'
+    log_format: str = f'[%(asctime)s] %(levelname)s [%(filename)s at %(lineno)d line] - %(message)s'
 
     @classmethod
-    def get_stream_handler(cls: Type['Logger']) -> 'logging.StreamHandler':
+    def _get_stream_handler(cls: Type['Logger']) -> 'logging.StreamHandler':
         '''Get stream handler for logger -> logging.StreamHandler().'''
         stream_handler: Type['logging.StreamHandler'] = logging.StreamHandler()
         stream_handler.setLevel(cls.logging_level)
-        stream_handler.setFormatter(logging.Formatter(cls._log_format, cls.logging_time_format))
+        stream_handler.setFormatter(logging.Formatter(cls.log_format, cls.logging_time_format))
         return stream_handler
     
     @classmethod
@@ -24,7 +24,7 @@ class Logger:
         '''Get logger -> logging.Logger'''
         logger: logging.Logger = logging.getLogger(name)
         logger.setLevel(logging.INFO)
-        logger.addHandler(cls.get_stream_handler())
+        logger.addHandler(cls._get_stream_handler())
         return logger
 
 

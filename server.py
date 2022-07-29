@@ -28,7 +28,7 @@ class Logger:
         return logger
 
 
-class SocketServer():
+class SocketServer:
     '''The socket-server'''
     logger = Logger.get_logger(__name__)
 
